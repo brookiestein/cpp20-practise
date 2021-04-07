@@ -7,7 +7,7 @@
 void
 usage(void)
 {
-        std::cout << "usage: ./prog <num1> <num2> <num3>" << std::endl;
+        std::cout << "usage: ./prog <length> <width> <height>" << std::endl;
 }
 
 int
