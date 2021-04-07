@@ -1,10 +1,12 @@
 #include "Box.h"
 
+/* Using member initializing list */
 Box::Box(double length, double width, double height)
+        : m_length {length}, m_width {width}, m_height {height}
 {
-        m_length = length;
-        m_width  = width;
-        m_height = height;
+        /* m_length = length; */
+        /* m_width  = width; */
+        /* m_height = height; */
 }
 
 double Box::getVolume()

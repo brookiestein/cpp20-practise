@@ -8,8 +8,8 @@ class Box
                  * wants to make a Box object without specifying its properties at the moment
                  * of instanciating it, but later. They can just instanciate it with the default
                  * values. i.e. 1.0 */
-                Box() {} /* Default constructor. */
-                Box(double length, double width, double height);
+                /* Box() {} /1* Default constructor. *1/ */
+                Box(double length = 1.0, double width = 1.0, double height = 1.0);
                 double getVolume();
                 void setLength(double length);
                 void setWidth(double width);
