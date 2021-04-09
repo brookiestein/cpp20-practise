@@ -30,25 +30,32 @@ Box::Box(double length, double width, double height)
         /* m_height = height; */
 }
 
-double Box::getVolume()
+double
+Box::getVolume() const
 {
         return (m_length * m_width * m_height);
 }
 
-void Box::setLength(double length)
+Box&
+Box::setLength(double length)
 {
         if (length > 0)
                 m_length = length;
+        return *this;
 }
 
-void Box::setWidth(double width)
+Box&
+Box::setWidth(double width)
 {
         if (width > 0)
                 m_width = width;
+        return *this;
 }
 
-void Box::setHeight(double height)
+Box&
+Box::setHeight(double height)
 {
         if (height > 0)
                 m_height = height;
+        return *this;
 }

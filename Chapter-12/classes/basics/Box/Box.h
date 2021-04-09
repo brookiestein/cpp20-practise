@@ -11,16 +11,16 @@ class Box
                 Box(); /* Default constructor. */
                 Box(double side);
                 Box(double length, double width, double height);
-                Box(const Box& source); /* A copy constructor */
+                Box(const Box& src); /* A copy constructor */
                 /* This kind of functions are called both accesors as getters. */
-                double getVolume();
-                double getLength() { return m_length; };
-                double getWidth() { return m_width; };
-                double getHeight() { return m_height; };
+                double getVolume() const;
+                double getLength() const { return m_length; };
+                double getWidth() const { return m_width; };
+                double getHeight() const { return m_height; };
                 /* These such functions are called both mutators as setters */
-                void setLength(double length);
-                void setWidth(double width);
-                void setHeight(double height);
+                Box& setLength(double length);
+                Box& setWidth(double width);
+                Box& setHeight(double height);
 
         private:
                 double m_length {1.0};
