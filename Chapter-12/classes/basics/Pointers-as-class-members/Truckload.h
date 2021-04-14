@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Package.h"
+#include "SharedBox.h"
 
 class Truckload
 {
@@ -15,16 +15,45 @@ class Truckload
 
                 ~Truckload();
 
-                SharedBox getFirstBox(); /* Get the first Box. */
-                SharedBox getNextBox(); /* Get the next Box. */
+                class Iterator;
+                Iterator getIterator() const;
+
                 void addBox(SharedBox box); /* Add a new Box. */
                 bool removeBox(SharedBox box); /* Remove a Box from the Truckload. */
                 void listBoxes() const; /* Output the Boxes. */
 
         private:
+                class Package;
+
                 Package* m_head {}; /* First in the list. */
                 Package* m_tail {}; /* Last in the list. */
-                Package* m_current {}; /* Last retrieved from the list. */
+};
+
+class Truckload::Iterator
+{
+        public:
+                SharedBox getFirstBox();
+                SharedBox getNextBox();
+
+        private:
+                Package* m_head;
+                Package* m_current;
+
+                friend class Truckload;
+                explicit Iterator(Package* head)
+                        : m_head {head}, m_current {nullptr} {}
+};
+
+class Truckload::Package
+{
+        public:
+                Package(SharedBox box);
+                ~Package();
+
+                /* Pointer to the Box object contained in this Package. */
+                SharedBox m_box;
+                /* Pointer to the next Package in the list. */
+                Package* m_next;
 };
 
 #endif

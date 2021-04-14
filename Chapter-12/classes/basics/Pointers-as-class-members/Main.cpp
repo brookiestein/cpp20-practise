@@ -21,15 +21,16 @@ main()
         std::cout << "The copied Truckload:\n";
         copy.listBoxes();
 
-        SharedBox largestBox {load1.getFirstBox()};
-        SharedBox nextBox {load1.getNextBox()};
+        auto iterator { load1.getIterator() };
+        SharedBox largestBox {iterator.getFirstBox()};
+        SharedBox nextBox {iterator.getNextBox()};
         while (nextBox) {
                 if (nextBox->compare(*largestBox) > 0)
                         largestBox = nextBox;
-                nextBox = load1.getNextBox();
+                nextBox = iterator.getNextBox();
         }
 
-        std::cout << "\nThe largest box in the first list is ";
+        std::cout << "\nThe largest box in the first list is:\n";
         largestBox->listBox();
         std::cout << std::endl;
         load1.removeBox(largestBox);
@@ -42,15 +43,17 @@ main()
                 boxes.push_back(randomSharedBox());
 
         Truckload load2 {boxes};
+        /* Because the load1 object is not longer used, I'll redefine the iterator */
+        iterator = load2.getIterator();
         std::cout << "\nThe second list:\n";
         load2.listBoxes();
 
-        auto smallestBox = load2.getFirstBox();
-        for (auto box = load2.getNextBox(); box; box = load2.getNextBox())
+        auto smallestBox = iterator.getFirstBox();
+        for (auto box = iterator.getNextBox(); box; box = iterator.getNextBox())
                 if (box->compare(*smallestBox) < 0)
                         smallestBox = box;
 
-        std::cout << "\nThe smallest box in the second list is ";
+        std::cout << "\nThe smallest box in the second list is\n";
         smallestBox->listBox();
         std::cout << std::endl;
 }
