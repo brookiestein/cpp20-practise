@@ -12,22 +12,22 @@ main()
         Carton carton2 { "Solid bleached board" };
         Carton carton3 { 20.5, 14.3, 10.0, "Cardboard" };
         Carton carton4 { 3.5, "PET" };
+        Carton carton5 { carton3 };
 
         std::cout << "\nBox occupies " << sizeof box << " bytes." << std::endl;
         std::cout << "Carton 1 occupies " << sizeof carton1 << " bytes." << std::endl;
         std::cout << "Carton 2 occupies " << sizeof carton2 << " bytes." << std::endl;
         std::cout << "Carton 3 occupies " << sizeof carton3 << " bytes." << std::endl;
         std::cout << "Carton 4 occupies " << sizeof carton4 << " bytes." << std::endl;
+        std::cout << "Carton 5 occupies " << sizeof carton5 << " bytes." << std::endl;
 
-        std::cout << "\nBox's volume " << box.volume() << std::endl;
-        std::cout << "Carton 1's volume " << carton1.volume() << std::endl;
-        std::cout << "Carton 1's material " << carton1.getMaterial() << std::endl;
-        std::cout << "Carton 2's volume " << carton2.volume() << std::endl;
-        std::cout << "Carton 2's material " << carton2.getMaterial() << std::endl;
-        std::cout << "Carton 3's volume " << carton3.volume() << std::endl;
-        std::cout << "Carton 3's material " << carton3.getMaterial() << std::endl;
-        std::cout << "Carton 4's volume " << carton4.volume() << std::endl;
-        std::cout << "Carton 4's material " << carton4.getMaterial() << std::endl;
+        std::cout << "Box (" << box << ')' << std::endl;
+        std::cout << "Carton 1 (" << carton1 << ')' << std::endl;
+        std::cout << "Carton 2 (" << carton2 << ')' << std::endl;
+        std::cout << "Carton 3 (" << carton3 << ')' << std::endl;
+        std::cout << "Carton 4 (" << carton4 << ')' << std::endl;
+        std::cout << "Carton 5 (" << carton5 << ')' << std::endl;
+        std::cout << std::endl;
 
         /* This version of the example can't use the get{Length,Width,Height}
          * member functions because the derived class has inherited everything of

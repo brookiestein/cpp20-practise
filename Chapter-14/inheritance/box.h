@@ -2,6 +2,7 @@
 #define BOX_H
 
 #include <iostream>
+#include <ostream>
 
 class Box
 {
@@ -9,6 +10,7 @@ class Box
                 Box();
                 explicit Box(double side);
                 Box(double length, double width, double height);
+                Box(const Box& src);
 
                 double volume() const;
 
@@ -22,5 +24,8 @@ class Box
                 double m_width;
                 double m_height;
 };
+
+std::ostream&
+operator<<(std::ostream& stream, const Box& box);
 
 #endif
