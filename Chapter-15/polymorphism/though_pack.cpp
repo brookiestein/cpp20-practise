@@ -9,7 +9,8 @@ ThoughPack::ThoughPack(double length, double width, double height)
 {}
 
 double
-ThoughPack::volume() const
+ThoughPack::volume(int i) const
 {
+        std::cout << "(ThoughPack argument = " << i << ") " << std::endl;
         return 0.85 * getLength() * getWidth() * getHeight();
 }
