@@ -8,9 +8,12 @@ ThoughPack::ThoughPack(double length, double width, double height)
         : Box {length, width, height}
 {}
 
+ThoughPack::ThoughPack(const Box& box)
+        : Box {box}
+{}
+
 double
-ThoughPack::volume(int i) const
+ThoughPack::volume() const
 {
-        std::cout << "(ThoughPack argument = " << i << ") " << std::endl;
         return 0.85 * getLength() * getWidth() * getHeight();
 }

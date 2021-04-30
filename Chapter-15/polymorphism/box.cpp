@@ -9,9 +9,8 @@ Box::Box(double length, double width, double height)
 {}
 
 double
-Box::volume(int i) const
+Box::volume() const
 {
-        std::cout << "(Box argument = " << i << ") " << std::endl;
         return m_length * m_width * m_height;
 }
 

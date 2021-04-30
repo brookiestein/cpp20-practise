@@ -8,10 +8,13 @@ Carton::Carton(double l, double w, double h, std::string_view material)
         : Box {l, w, h}, m_material {material}
 {}
 
+Carton::Carton(const Box& box, std::string_view material)
+        : Box {box}, m_material {material}
+{}
+
 double
-Carton::volume(int i) const
+Carton::volume() const
 {
-        std::cout << "(Carton argument = " << i << ") " << std::endl;
         double volume { (getLength() - 0.5) * (getWidth() - 0.5) * (getHeight() - 0.5) };
         return std::max(volume, 0.0);
 }

@@ -8,7 +8,8 @@ class ThoughPack : public Box
         public:
                 ThoughPack();
                 ThoughPack(double length, double width, double height);
-                double volume(int i = 500) const;
+                ThoughPack(const Box& box);
+                double volume() const;
 };
 
 #endif
