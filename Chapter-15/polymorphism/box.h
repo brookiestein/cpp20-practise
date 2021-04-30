@@ -8,6 +8,7 @@ class Box
         public:
                 Box();
                 Box(double length, double width, double height);
+                virtual ~Box();
                 virtual double volume() const;
                 void showVolume() const;
                 double getLength() const;

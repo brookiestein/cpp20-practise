@@ -13,6 +13,7 @@ class Carton : public Box
                 Carton();
                 Carton(double l, double w, double h, std::string_view material = "Cardboard");
                 Carton(const Box& box, std::string_view material);
+                ~Carton();
                 std::string getMaterial() const;
                 double volume() const override;
 

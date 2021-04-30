@@ -9,6 +9,7 @@ class ThoughPack : public Box
                 ThoughPack();
                 ThoughPack(double length, double width, double height);
                 ThoughPack(const Box& box);
+                ~ThoughPack();
                 double volume() const;
 };
 

@@ -12,6 +12,11 @@ Carton::Carton(const Box& box, std::string_view material)
         : Box {box}, m_material {material}
 {}
 
+Carton::~Carton()
+{
+        std::cout << "Carton destructor called." << std::endl;
+}
+
 double
 Carton::volume() const
 {

@@ -20,4 +20,6 @@ main()
 
         for (const auto& box : polymorphicBoxes)
                 box->showVolume();
+
+        std::cout << std::endl;
 }

@@ -12,6 +12,11 @@ ThoughPack::ThoughPack(const Box& box)
         : Box {box}
 {}
 
+ThoughPack::~ThoughPack()
+{
+        std::cout << "ThoughPack destructor called." << std::endl;
+}
+
 double
 ThoughPack::volume() const
 {
