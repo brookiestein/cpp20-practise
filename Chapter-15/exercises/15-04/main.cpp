@@ -1,20 +1,15 @@
-/* Exercise 15-1. Define a base class called Animal with two member variables: a string */
-/* member to store the name of the animal (e.g., "Fido" ) and an integer member, weight , */
-/* that will contain the weight of the Animal in pounds. Also include a public member */
-/* function, who() , that returns a string object containing the name and weight of the */
-/* Animal object, as well as a pure virtual function called sound() that in a derived class */
-/* should return a string representing the sound the animal makes. Derive at least three */
-/* classes— Sheep , Dog , and Cow —with the class Animal as a public base and implement */
-/* the sound() function appropriately in each class. */
-/* Define a class called Zoo that can store the addresses of any number of Animal objects */
-/* of various types in a vector<> container. Write a main() function to create a random */
-/* sequence of an arbitrary number of objects of classes derived from Animal and store */
-/* pointers to them in a Zoo object. To keep things simple, work with std::shared_ptr<> */
-/* pointers to transfer and store Animal s into the Zoo . (Later, in Chapter 18, we’ll teach */
-/* you about move semantics, which will allow you to use unique_ptr<> smart pointers */
-/* for this as well.) The number of objects should be entered from the keyboard. Define */
-/* a member function of the Zoo class that outputs information about each animal in the zoo,
- * including the text of the sound they all make. */
+/* Exercise 15-4. Add a function herd() to the Zoo class you made for Exercises 15-2 or */
+/* 15-3 that returns a vector<Sheep*> with pointers to all Sheep in the Zoo . The Sheep */
+/* remain part of the Zoo . Define a function called shear() for Sheep that removes their */
+/* wool. The function returns the weight of the wool after correctly adjusting the weight */
+/* members of the Sheep object. Adjust the program of Exercise 15-2 so that it gathers */
+/* all Sheep using herd() , collects all their wool, and then outputs information in the Zoo */
+/* again. */
+/* Hint: To extract an Animal* pointer from a given shared_ptr<Animal> , you call the */
+/* get() function of the std::shared_ptr<> template. */
+/* Extra: In this chapter, you learned about two different language mechanisms that could */
+/* be used to herd() Sheep , that is, two techniques to differentiate Sheep* from other */
+/* Animal* pointers. Try both (leaving one commented out). */
 
 #include <iostream>
 #include <memory>
