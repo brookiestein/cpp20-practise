@@ -20,17 +20,13 @@ main()
                                         throw MoreTrouble {};
                                 if (i == 6)
                                         throw BigTrouble {};
-                        } catch (const Trouble& ex) {
-                                if (typeid(ex) == typeid(Trouble))
-                                        std::cout << "Trouble exception caught: "
-                                                << ex.what() << std::endl;
-                                else
-                                        throw;
-                                /* If you try to rethrow an exception by doing this:
-                                 * throw exception; you're not rethrowing it, but you're
-                                 * throwing a *new* exception, and if you received it as
-                                 * a reference to the base class, probably object slicing
-                                 * will occur. */
+                        } catch (const BigTrouble& big_trouble) {
+                                std::cout << "Oh, a big trouble has occur! Let's "
+                                        << "treat it here and now: "
+                                        << big_trouble.what() << std::endl;
+                        } catch (...) {
+                                std::cout << "Something else has occur. Let's rethrow it!\n";
+                                throw;
                         }
                 } catch (const Trouble& ex) {
                         std::cout << typeid(ex).name() << " exception caught: "
