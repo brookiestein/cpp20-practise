@@ -88,10 +88,10 @@ askEvenNumber()
                         std::cout << "Thank you for entering " << evenNumber << "!\n";
                         break;
                 } catch (const NotANumber& ex) {
-                        std::cout << ex.what() << std::endl;
+                        std::cerr << ex.what() << std::endl;
                         break;
                 } catch (const std::domain_error& ex) {
-                        std::cout << ex.what() << std::endl;
+                        std::cerr << ex.what() << std::endl;
                 } catch (...) {
                         throw;
                 }
