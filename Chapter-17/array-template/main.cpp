@@ -1,7 +1,8 @@
 #include <iostream>
-#include <initializer_list>
+/* #include <initializer_list> */
 #include <stdexcept>
 #include <string>
+#include <utility>
 
 template <typename T>
 class Array
@@ -27,7 +28,6 @@ public:
         /*                 m_elements[i++] = item; */
         /* } */
 
-        /* I've not been able to implement the copy constructor yet... */
         Array(const Array& src)
                 : Array {src.m_size}
         {
@@ -56,19 +56,43 @@ public:
         }
 
         size_t size() const noexcept { return m_size; }
-        T begin() const noexcept { return m_elements[0]; }
-        T end() const noexcept { return m_elements[m_size - 1]; }
 
-        T& at(size_t index)
+        T begin() const
         {
-                if (index < 0 || index >= m_size)
-                        throw std::out_of_range { "There's no " + std::to_string(index) + " item." };
+                if (m_size == 0)
+                        throw std::out_of_range { "Array is empty." };
+                return m_elements[0];
+        }
+
+        T end() const
+        {
+                if (m_size == 0)
+                        throw std::out_of_range { "Array is empty." };
+                return m_elements[m_size - 1]; }
+
+        T& operator=(const Array& src)
+        {
+                Array<T> copy { src };
+                swap(copy);
+                return *this;
+        }
+
+        void swap(Array& other) noexcept
+        {
+                std::swap(m_elements, other.m_elements);
+                std::swap(m_size, other.m_size);
+        }
+
+        const T& operator[](size_t index) const
+        {
+                if (index >= m_size)
+                        throw std::out_of_range { "Index too large." };
                 return m_elements[index];
         }
 
-        const T& at(size_t index) const { return at(index); }
-        T& operator[](size_t index) { return at(index); }
-        const T& operator[](size_t index) const { return at(index); }
+        T& operator[](size_t index) { return const_cast<T&>(std::as_const(*this[index])); }
+        const T& at(size_t index) const { return *this[index]; }
+        T& at(size_t index) { return const_cast<T&>(std::as_const(*this[index])); }
 
         /* Add an item at the end of the array taking in account that array has enough space for adding it. */
         void add(T item)
@@ -82,7 +106,7 @@ public:
         }
 
         /* Resets the static counter and so start to add items from the beginning of
-         * the array. */
+         * the array. This *will* cause that items at the current position be replaced! */
         void reset_counter() noexcept { position = 0; }
 
         void push_back(T item)
@@ -124,28 +148,16 @@ private:
         }
 };
 
+template <typename T>
+void
+swap(Array<T>& one, Array<T>& other) noexcept
+{
+        one.swap(other);
+}
+
 int
 main()
 {
-        /* Array<int> arr {1, 2, 3}; */
-        Array<int> arr {5};
-        arr.add(1);
-        arr.add(2);
-        arr.add(3);
-
-        std::cout << "Original array:\n";
-        arr.forEach();
-
-        arr.push_back(6);
-        std::cout << "After adding an item at the end:\n";
-        arr.forEach();
-
-        arr.push_front(0);
-        std::cout << "After adding an item at the beginning:\n";
-        arr.forEach();
-
-        arr.add(4);
-        arr.add(5);
-        std::cout << "After adding two items where the position was:\n";
-        arr.forEach();
+        Array<int> integers;
+        std::cout << integers.end() << std::endl;
 }
