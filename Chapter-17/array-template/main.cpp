@@ -4,6 +4,8 @@
 #include <string>
 #include <utility>
 
+#include "box.h"
+
 template <typename T>
 class Array
 {
@@ -57,14 +59,14 @@ public:
 
         size_t size() const noexcept { return m_size; }
 
-        T begin() const
+        T& begin() const
         {
                 if (m_size == 0)
                         throw std::out_of_range { "Array is empty." };
                 return m_elements[0];
         }
 
-        T end() const
+        T& end() const
         {
                 if (m_size == 0)
                         throw std::out_of_range { "Array is empty." };
@@ -86,13 +88,13 @@ public:
         const T& operator[](size_t index) const
         {
                 if (index >= m_size)
-                        throw std::out_of_range { "Index too large." };
+                        throw std::out_of_range { "Index '" + std::to_string(index) + "' too large." };
                 return m_elements[index];
         }
 
-        T& operator[](size_t index) { return const_cast<T&>(std::as_const(*this[index])); }
+        T& operator[](size_t index) { return const_cast<T&>(std::as_const(*this)[index]); }
         const T& at(size_t index) const { return *this[index]; }
-        T& at(size_t index) { return const_cast<T&>(std::as_const(*this[index])); }
+        T& at(size_t index) { return const_cast<T&>(std::as_const(*this)[index]); }
 
         /* Add an item at the end of the array taking in account that array has enough space for adding it. */
         void add(T item)
@@ -148,16 +150,29 @@ private:
         }
 };
 
-template <typename T>
-void
-swap(Array<T>& one, Array<T>& other) noexcept
-{
-        one.swap(other);
-}
-
 int
 main()
 {
-        Array<int> integers;
-        std::cout << integers.end() << std::endl;
+        try {
+                Array<int> integers {5};
+                for (size_t i {}; i < integers.size(); ++i)
+                        integers[i] = i + 1;
+
+                std::cout << "Sum of pairs:\n";
+                for (size_t i {integers.size() - 1}; i >= 0; --i) {
+                        std::cout
+                                << integers[i] << " + " << integers[i - 1] << " = "
+                                << (integers[i] + integers[i - 1]) << std::endl;
+                }
+        } catch (const std::out_of_range& ex) {
+                std::cerr << "Out-of-range exception caught: " << ex.what() << std::endl;
+        }
+
+        try {
+                Array<Box> boxes {5};
+                for (size_t i {}; i <= boxes.size(); ++i)
+                        std::cout << "Box's volume is: " << boxes[i].volume() << std::endl;
+        } catch (const std::out_of_range& ex) {
+                std::cerr << "Out-of-range exception caught: " << ex.what() << std::endl;
+        }
 }
