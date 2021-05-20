@@ -3,10 +3,11 @@
 #include <stdexcept>
 #include <string>
 #include <utility>
+#include <typeinfo>
 
 #include "box.h"
 
-template <typename T>
+template <typename T, int startIndex = 0>
 class Array
 {
 public:
@@ -74,7 +75,7 @@ public:
 
         T& operator=(const Array& src)
         {
-                Array<T> copy { src };
+                Array<T, startIndex> copy { src };
                 swap(copy);
                 return *this;
         }
@@ -85,16 +86,18 @@ public:
                 std::swap(m_size, other.m_size);
         }
 
-        const T& operator[](size_t index) const
+        const T& operator[](int index) const
         {
-                if (index >= m_size)
+                if (index < startIndex)
+                        throw std::out_of_range { "Index '" + std::to_string(index) + "' out of range." };
+                if (index > startIndex + static_cast<int>(m_size) - 1)
                         throw std::out_of_range { "Index '" + std::to_string(index) + "' too large." };
-                return m_elements[index];
+                return m_elements[index - startIndex];
         }
 
-        T& operator[](size_t index) { return const_cast<T&>(std::as_const(*this)[index]); }
-        const T& at(size_t index) const { return *this[index]; }
-        T& at(size_t index) { return const_cast<T&>(std::as_const(*this)[index]); }
+        T& operator[](int index) { return const_cast<T&>(std::as_const(*this)[index]); }
+        const T& at(int index) const { return *this[index]; }
+        T& at(int index) { return const_cast<T&>(std::as_const(*this)[index]); }
 
         /* Add an item at the end of the array taking in account that array has enough space for adding it. */
         void add(T item)
@@ -153,26 +156,32 @@ private:
 int
 main()
 {
-        try {
-                Array<int> integers {5};
-                for (size_t i {}; i < integers.size(); ++i)
-                        integers[i] = i + 1;
+        const size_t size { 21 };
+        const int start { -10 };
+        const int end { start + static_cast<int>(size) - 1 };
+        Array<int, start> ints {size};
 
-                std::cout << "Sum of pairs:\n";
-                for (size_t i {integers.size() - 1}; i >= 0; --i) {
-                        std::cout
-                                << integers[i] << " + " << integers[i - 1] << " = "
-                                << (integers[i] + integers[i - 1]) << std::endl;
-                }
+        try {
+                for (int i {start}; i <= end; ++i)
+                        ints[i] = i - start + 1;
+
+                std::cout << "Sum of pairs:" << std::endl;
+                size_t lines {};
+
+                for (int i {end}; i >= start; --i)
+                        std::cout << (lines++ % 5 == 0 ? "\n": " ")
+                                << ints[i] + ints[i - 1];
         } catch (const std::out_of_range& ex) {
-                std::cerr << "Out-of-range exception caught: " << ex.what() << std::endl;
+                std::cout << "out_of_range exception caught: " << ex.what() << std::endl;
         }
 
+        const int numBoxes {9};
+        Array<Box, -numBoxes / 2> boxes { static_cast<size_t>(numBoxes) };
         try {
-                Array<Box> boxes {5};
-                for (size_t i {}; i <= boxes.size(); ++i)
-                        std::cout << "Box's volume is: " << boxes[i].volume() << std::endl;
-        } catch (const std::out_of_range& ex) {
-                std::cerr << "Out-of-range exception caught: " << ex.what() << std::endl;
+                for (int i {-numBoxes / 2}; i <= (numBoxes / 2 + numBoxes % 2); ++i)
+                        std::cout << "Volume of Box[" << i << "] is: "
+                                << boxes[i].volume() << std::endl;
+        } catch (const std::exception& ex) {
+                std::cout << typeid(ex).name() << " exception caught: " << ex.what() << std::endl;
         }
 }
