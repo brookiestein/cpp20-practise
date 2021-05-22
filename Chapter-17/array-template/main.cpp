@@ -1,5 +1,5 @@
 #include <iostream>
-/* #include <initializer_list> */
+#include <initializer_list>
 #include <stdexcept>
 #include <string>
 #include <utility>
@@ -7,7 +7,7 @@
 
 #include "box.h"
 
-template <typename T, int startIndex = 0>
+template <typename T = int, int startIndex = 0>
 class Array
 {
 public:
@@ -20,16 +20,12 @@ public:
                 m_size {size}
         {}
 
-        /* FIXME: Having this constructor makes confusion when initializing an Array
-         * with an initializer_list and with a fixed size. */
-        /* explicit Array(std::initializer_list<T> init_list) */
-        /*         : m_size {init_list.size()}, */
-        /*         m_elements { new T[init_list.size()] } */
-        /* { */
-        /*         size_t i {}; */
-        /*         for (auto& item : init_list) */
-        /*                 m_elements[i++] = item; */
-        /* } */
+        explicit Array(std::initializer_list<T> init_list)
+                : Array(init_list.size())
+        {
+                for (size_t i {}; auto& item : init_list)
+                        m_elements[i++] = item;
+        }
 
         Array(const Array& src)
                 : Array {src.m_size}
@@ -156,32 +152,9 @@ private:
 int
 main()
 {
-        const size_t size { 21 };
-        const int start { -10 };
-        const int end { start + static_cast<int>(size) - 1 };
-        Array<int, start> ints {size};
+        Array integers {1, 2, 3, 4, 5};
+        Array test(5); /* It pretend to have an Array with space for 5 integers! */
 
-        try {
-                for (int i {start}; i <= end; ++i)
-                        ints[i] = i - start + 1;
-
-                std::cout << "Sum of pairs:" << std::endl;
-                size_t lines {};
-
-                for (int i {end}; i >= start; --i)
-                        std::cout << (lines++ % 5 == 0 ? "\n": " ")
-                                << ints[i] + ints[i - 1];
-        } catch (const std::out_of_range& ex) {
-                std::cout << "out_of_range exception caught: " << ex.what() << std::endl;
-        }
-
-        const int numBoxes {9};
-        Array<Box, -numBoxes / 2> boxes { static_cast<size_t>(numBoxes) };
-        try {
-                for (int i {-numBoxes / 2}; i <= (numBoxes / 2 + numBoxes % 2); ++i)
-                        std::cout << "Volume of Box[" << i << "] is: "
-                                << boxes[i].volume() << std::endl;
-        } catch (const std::exception& ex) {
-                std::cout << typeid(ex).name() << " exception caught: " << ex.what() << std::endl;
-        }
+        integers.forEach();
+        test.forEach();
 }
