@@ -1,0 +1,24 @@
+Exercise 17-2. Define a template for classes that represent pairs of values of possibly
+different types. The values can be accessed using public first and second member
+variables. A pair of an int and a std::string can then be created and used as follows:
+auto my_pair = Pair<int, std::string>(122, "abc");
+++my_pair.first;
+std::cout << "my_pair equals (" << my_pair.first
+          << ", " << my_pair.second << ')' << std::endl;
+While usually we’d advise against public member variables, we turn a blind eye in this
+exercise because the standard std::pair<> template also uses these same public
+members.
+Also define a default constructor and make sure pairs can be compared using operators
+== , < , >= , and so on, based on a so-called lexicographical comparison. That is, pairs
+should be ordered using the same logic as used when sorting two-letter words, except
+that now the words do not consist of two letters but two different values. Suppose you
+have the following three pairs:
+auto pair1 = Pair<int, std::string>(  0, "def");
+auto pair2 = Pair<int, std::string>(123, "abc");
+auto pair3 = Pair<int, std::string>(123, "def");
+Then the expressions pair1 < pair2 and pair2 < pair3 should both evaluate to true .
+The first because 0 < 123 ; the second because "abc" < "def" . The second values of
+the Pair s are looked at only if the first ones compare equal using == .
+Create a small program to make sure your Pair<> template works as required. You
+could, for instance, use the snippets we’ve provided in this exercise assignment.
+Does class template argument deduction (CTAD) work for the Pair<> template?
