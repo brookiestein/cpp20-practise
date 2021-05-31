@@ -1,0 +1,2 @@
+Exercise 17-3. Create a << operator template to stream the Pair s of Exercise 17-2 to
+an output stream. Adjust the test program as well to make use of this operator.
