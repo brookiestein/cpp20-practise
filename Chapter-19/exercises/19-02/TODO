@@ -1,0 +1,10 @@
+Exercise 19-2. Throughout this book you’ve already defined various sort functions,
+but they always sorted elements in ascending order and always according to the
+evaluation of the < operator. Clearly, a truly generic sorting function would benefit from
+a comparison callback, completely analogous to the findOptimum<>() templates
+that you worked with throughout this chapter. Take the solution to Exercise 10-6 and
+generalize its sort<>() template accordingly. Use this to sort a sequence of integers
+in descending order (that is, from large to small); to sort a sequence of characters
+alphabetically, ignoring the case ('a' must rank before 'B', even though 'B' < 'a');
+and a sequence of floating-point values in ascending order but ignoring the sign (5.5
+should thus precede -55.2 but not -3.14).
