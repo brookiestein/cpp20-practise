@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
 
 std::vector<int> fillVector_1toN(const size_t size);
@@ -9,11 +10,13 @@ int
 main()
 {
         auto numbers { fillVector_1toN(20) };
-        std::vector<int> even (numbers.size());
+        std::vector<int> even;
+        std::copy_if(numbers.begin(), numbers.end(),
+                        std::back_inserter(even),
+                        [] (int n) {
+                                return n % 2 == 0;
+        });
 
-        auto end_even = std::copy_if(numbers.begin(), numbers.end(), even.begin(),
-                [] (int n) { return n % 2 == 0; });
-        even.erase(end_even, even.end());
 
         std::cout << "This is the original vector:\n";
         showVector(numbers);
